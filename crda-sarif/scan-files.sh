@@ -15,6 +15,8 @@ else
 fi
 
  
+npm install
+
 echo running  $CRDA  auth -t $SNYK_TOKEN 
 $CRDA  auth -t $SNYK_TOKEN  >hide-auth.txt
 rm hide-auth.txt 
