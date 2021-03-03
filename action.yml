@@ -8,6 +8,10 @@ inputs:
   snyk-token:  
     description: 'This is the sny token for verbose scans'
     required: true 
+  output-file-name:  
+    description: 'This is the generated Sarif file'
+    required: false
+    default: 'output.sarif' 
 outputs:
   result: 
     description: 'The result of the merging command'
@@ -17,3 +21,4 @@ runs:
   args:
     - ${{ inputs.input-file-name }} 
     - ${{ inputs.snyk-token }} 
+    - ${{ inputs.output-file-name }} 

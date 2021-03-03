@@ -1,6 +1,5 @@
 var fs = require('fs');
 
-var outputFile = "output.sarif";
 
 var sarif_template =
 {
@@ -30,10 +29,15 @@ var sarif_template =
 var args = process.argv.splice(2);
 if (args.length < 1) {
     console.log("You must pass crda json file");
-    console.log("Usage:", process.argv[0], " crda.json");
+    console.log("Usage:", process.argv[0], " input-file optional-output-file(default == output.sarif)");
     process.exit(0);
 }
 var crda = args[0]
+var outputFile = "output.sarif";
+if (args.length > 1) { 
+    outputFile = args[1]
+    console.log("outputFile set to:", outputFile);
+}
 
 //set or get rules
 function srules(sarif, optional_set) {
