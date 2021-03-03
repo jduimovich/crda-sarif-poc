@@ -4,7 +4,7 @@ var outputFile = "output.sarif";
 
 var sarif_template =
 {
-    "version": "1.0.0",
+    "version": "2.1.0",
     "runs": [
         {
             "originalUriBaseIds": {
@@ -52,9 +52,13 @@ function crda_to_rule (e) {
     r.shortDescription  =  { "text": e.title };
     r.fullDescription  =  { "text": e.title };
     r.help  = { "text": "text for help", "markdown": "markdown ***text for help" } ;
-    r.defaultConfiguration  =  { "level": e.severity };
-    r.properties  = { "tags": [] }
-    r.cve_ids  = { "tags": [e.cve_ids] }
+    var sev =   "none" ; 
+    if (e.severity == "medium") sev = "warning"    ;
+    if (e.severity == "high") sev = "error"    ;
+    if (e.severity == "critical") sev = "error" ;
+
+    r.defaultConfiguration  =  { "level": sev };
+    r.properties  = { "tags": [] } 
     return r;
 }
 
