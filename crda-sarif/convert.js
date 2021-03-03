@@ -67,8 +67,9 @@ function crda_to_rule(e) {
 }
 
 function crda_to_result(e) {
-    var r = {}
+    var r = null;
     if (e.commonly_known_vulnerabilities) {
+        r =  {}
         r.ruleId = e.commonly_known_vulnerabilities[0].id;
         r.message = {
             "text": e.commonly_known_vulnerabilities[0].title
@@ -108,7 +109,10 @@ function mergeSarif(d1) {
     srules(sarif_template, newRules);
     var results = []
     crda.analysed_dependencies.forEach(
-        function (e) { results.push(crda_to_result(e)) }
+        function (e) { 
+            var hasResult = crda_to_result(e);
+            if (hasResult) results.push(hasResult) 
+        }
     )
     sresults(sarif_template, results)
     console.log(outputFile + " rules found: ", srules(sarif_template).length)
