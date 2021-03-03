@@ -1,0 +1,9 @@
+{
+  "name": "demo",
+  "description": "Have a vulnerability to find",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "urijs": "1.19.5"
+  }
+}

@@ -1,0 +1,42 @@
+{
+	"analysed_dependencies": [
+		{
+			"name": "urijs",
+			"version": "1.19.5",
+			"transitives": null,
+			"latest_version": "1.19.6",
+			"recommended_version": "1.19.6",
+			"commonly_known_vulnerabilities": [
+				{
+					"severity": "medium",
+					"id": "SNYK-JS-URIJS-1078286",
+					"title": "Improper Input Validation",
+					"url": "https://snyk.io/vuln/SNYK-JS-URIJS-1078286"
+				}
+			],
+			"vulnerabilities_unique_with_snyk": null,
+			"vulnerable_transitives": null
+		}
+	],
+	"total_direct_vulnerabilities": 1,
+	"total_transitives_scanned": 0,
+	"transitive_vulnerabilities": 0,
+	"severity": {
+		"low": null,
+		"medium": [
+			{
+				"cve_ids": [
+					"CVE-2021-27516"
+				],
+				"cvss": 5.3,
+				"id": "SNYK-JS-URIJS-1078286",
+				"severity": "medium",
+				"title": "Improper Input Validation",
+				"url": "https://snyk.io/vuln/SNYK-JS-URIJS-1078286",
+				"kind": ""
+			}
+		],
+		"high": null,
+		"critical": null
+	}
+}

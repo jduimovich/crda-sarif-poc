@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "originalUriBaseIds": {
+        "PROJECTROOT": {
+          "uri": "file:///github/workspace/",
+          "description": {
+            "text": "The root directory for all project files."
+          }
+        }
+      },
+      "tool": {
+        "driver": {
+          "name": "CRDA",
+          "rules": [ ]
+        }
+      },
+      "results": [   ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+#CI Test - Build the action container
+# build test container which has default test files and validate
+name: CI
+on: [push] 
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Merge Sarif Files for github scans
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v2  
+      - name: CRDA  (replace with action)
+        run: | 
+          node convert.js crda.json 
+          cat output.sarif | jq  
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file:  output.sarif
