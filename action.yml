@@ -4,8 +4,10 @@ description: 'This action with take CRDA JSON output and produces a sarif file.'
 inputs:
   input-file-name:  
     description: 'This is the source file crom CRDA'
-    required: false
-    default: 'crda.json' 
+    required: true 
+  snyk-token:  
+    description: 'This is the sny token for verbose scans'
+    required: true 
 outputs:
   result: 
     description: 'The result of the merging command'
@@ -14,3 +16,4 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.input-file-name }} 
+    - ${{ inputs.snyk-token }} 
