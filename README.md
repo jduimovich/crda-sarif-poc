@@ -7,7 +7,7 @@ This action is designed to scan a repository using CRDA and then convert to SARI
 
 This is a PoC/WIP
 
-The converted sarif file is uploaded using  github/codeql-action/upload-sarif@v1  
+The converted sarif file is uploaded using github/codeql-action/upload-sarif@v1  
 
 Sample usage is here . Matched use of the CLI, file name to scan and synk token required.
 The output file defauls to output.sarif but can be changed by the user. 
