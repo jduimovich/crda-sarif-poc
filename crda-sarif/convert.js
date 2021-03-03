@@ -24,7 +24,7 @@ var sarif_template =
         }
     ]
 };
-  
+
 
 var args = process.argv.splice(2);
 if (args.length < 1) {
@@ -34,7 +34,7 @@ if (args.length < 1) {
 }
 var crda = args[0]
 var outputFile = "output.sarif";
-if (args.length > 1) { 
+if (args.length > 1) {
     outputFile = args[1]
     console.log("outputFile set to:", outputFile);
 }
@@ -50,39 +50,41 @@ function sresults(sarif, optional_set) {
 }
 
 
-function crda_to_rule (e) {
-    var r = {}  
-    r.id  = e.id;
-    r.shortDescription  =  { "text": e.title };
-    r.fullDescription  =  { "text": e.title };
-    r.help  = { "text": "text for help", "markdown": "markdown ***text for help" } ;
-    var sev =   "none" ; 
-    if (e.severity == "medium") sev = "warning"    ;
-    if (e.severity == "high") sev = "error"    ;
-    if (e.severity == "critical") sev = "error" ;
+function crda_to_rule(e) {
+    var r = {}
+    r.id = e.id;
+    r.shortDescription = { "text": e.title };
+    r.fullDescription = { "text": e.title };
+    r.help = { "text": "text for help", "markdown": "markdown ***text for help" };
+    var sev = "none";
+    if (e.severity == "medium") sev = "warning";
+    if (e.severity == "high") sev = "error";
+    if (e.severity == "critical") sev = "error";
 
-    r.defaultConfiguration  =  { "level": sev };
-    r.properties  = { "tags": [] } 
+    r.defaultConfiguration = { "level": sev };
+    r.properties = { "tags": [] }
     return r;
 }
 
-function crda_to_result (e) {
-    var r = {}  
-    r.ruleId  = e.commonly_known_vulnerabilities[0].id ; 
-    r.message  =   {
-        "text": e.commonly_known_vulnerabilities[0].title
-      }
-    r.locations  =  [  {
-        "physicalLocation": {
-          "artifactLocation": {
-            "uri": e.name,
-            "uriBaseId": "PROJECTROOT"
-          },
-          "region": {
-            "startLine": 1
-          }
+function crda_to_result(e) {
+    var r = {}
+    if (e.commonly_known_vulnerabilities) {
+        r.ruleId = e.commonly_known_vulnerabilities[0].id;
+        r.message = {
+            "text": e.commonly_known_vulnerabilities[0].title
         }
-      }]; 
+        r.locations = [{
+            "physicalLocation": {
+                "artifactLocation": {
+                    "uri": e.name,
+                    "uriBaseId": "PROJECTROOT"
+                },
+                "region": {
+                    "startLine": 1
+                }
+            }
+        }];
+    }
     return r;
 }
 
@@ -90,10 +92,10 @@ function crda_to_result (e) {
 
 function mergeSarif(d1) {
     console.log(outputFile + " rules found: ", srules(sarif_template).length)
-    console.log(outputFile + " locations found: ", sresults(sarif_template).length) 
-    var crda = JSON.parse(d1) 
-    var newRules = [] 
-    var f = function (e) { newRules.push(crda_to_rule(e)) } 
+    console.log(outputFile + " locations found: ", sresults(sarif_template).length)
+    var crda = JSON.parse(d1)
+    var newRules = []
+    var f = function (e) { newRules.push(crda_to_rule(e)) }
     if (crda.severity.low)
         crda.severity.low.forEach(f)
     if (crda.severity.medium)
@@ -101,16 +103,16 @@ function mergeSarif(d1) {
     if (crda.severity.high)
         crda.severity.high.forEach(f)
     if (crda.severity.critical)
-            crda.severity.critical.forEach(f) 
+        crda.severity.critical.forEach(f)
     console.log("Number of rules combined is: ", newRules.length)
-    srules(sarif_template, newRules);  
-    var results = [] 
-    crda.analysed_dependencies.forEach (
-        function (e) { results.push(crda_to_result(e)) } 
-    )   
-    sresults(sarif_template, results) 
+    srules(sarif_template, newRules);
+    var results = []
+    crda.analysed_dependencies.forEach(
+        function (e) { results.push(crda_to_result(e)) }
+    )
+    sresults(sarif_template, results)
     console.log(outputFile + " rules found: ", srules(sarif_template).length)
-    console.log(outputFile + " locations found: ", sresults(sarif_template).length) 
+    console.log(outputFile + " locations found: ", sresults(sarif_template).length)
     return sarif_template;
 }
 
