@@ -9,7 +9,8 @@ This is a PoC/WIP
 
 The converted sarif file is uploaded using  github/codeql-action/upload-sarif@v1  
 
-Simple usage is here 
+Sample usage is here . Matched use of the CLI, file name to scan and synk token required.
+The output file defauls to output.sarif but can be changed by the user. 
 
 ``` 
 name: CI
@@ -33,15 +34,5 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: output.sarif
-      - name: Save Intermediate files
-        run: |  
-          mkdir -p uploads
-          mv output.sarif uploads 
-          mv crda.json uploads 
-      - name: Upload merged Results  
-        uses: actions/upload-artifact@v2
-        with: 
-          name: workfiles
-          path: ./uploads
+          sarif_file: output.sarif 
 ```

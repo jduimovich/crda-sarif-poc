@@ -5,7 +5,7 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: Merge Sarif Files for github scans
+    name: CRDA Scan
     steps: 
       - name: Checkout
         uses: actions/checkout@v2 
@@ -15,10 +15,23 @@ jobs:
           input-file-name: package.json
           snyk-token: ${{ secrets.SNYK_TOKEN }}
           output-file-name: output.sarif
-      - name: CRDA validate
+      - name: Show CRDA and Sarif outputs
         run: |  
+          echo CRDA JSON output
+          cat crda.json  | jq 
+          echo CRDA sarif output
           cat output.sarif  | jq 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: output.sarif
+      - name: Save Intermediate files
+        run: |  
+          mkdir -p uploads
+          mv output.sarif uploads 
+          mv crda.json uploads 
+      - name: Upload merged Results  
+        uses: actions/upload-artifact@v2
+        with: 
+          name: workfiles
+          path: ./uploads
