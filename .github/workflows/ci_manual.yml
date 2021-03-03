@@ -13,7 +13,7 @@ jobs:
         uses: ./   
         with:
           input-file-name: package.json
-          merged-file-name: ${{ secrets.SNYK_TOKEN }}
+          snyk-token: ${{ secrets.SNYK_TOKEN }}
       - name: CRDA validate
         run: |  
           cat output.sarif  | jq 
