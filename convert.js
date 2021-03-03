@@ -64,7 +64,7 @@ function crda_to_rule (e) {
 
 function crda_to_result (e) {
     var r = {}  
-    r.ruleId  = e.id; 
+    r.ruleId  = e.commonly_known_vulnerabilities[0].id ; 
     r.message  =   {
         "text": e.commonly_known_vulnerabilities[0].title
       }
