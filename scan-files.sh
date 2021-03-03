@@ -4,7 +4,7 @@ CRDA=/crda-sarif/crda
 echo $0 called with  $1, token $2
 
 FILE=$(pwd)/$1
-SNYK_TOKEN=$(pwd)/$SNYK_TOKEN
+SNYK_TOKEN=$2
  
 echo running  $CRDA  auth -t $SNYK_TOKEN 
 $CRDA  auth -t $SNYK_TOKEN 
