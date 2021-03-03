@@ -65,7 +65,9 @@ function crda_to_rule (e) {
 function crda_to_result (e) {
     var r = {}  
     r.ruleId  = e.id;
-    r.message  =  { "text": e.title };
+    r.message  =   {
+        "text": e.commonly_known_vulnerabilities.title
+      }
     r.locations  =  [  {
         "physicalLocation": {
           "artifactLocation": {
