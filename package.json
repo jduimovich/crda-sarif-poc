@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "urijs": "1.19.5"
+    "urijs": "1.19.5",
+    "pug": "3.0.0"
   }
 }
