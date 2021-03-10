@@ -85,7 +85,7 @@ function crda_to_result(e, packageJson) {
                     "uriBaseId": "PROJECTROOT"
                 },
                 "region": {
-                    "startLine": index
+                    "startLine": index+1
                 }
             }
         }];
