@@ -66,9 +66,13 @@ function crda_to_rule(e) {
     return r;
 }
 
-function crda_to_result(e) {
+function crda_to_result(e, packageJson) {
     var r = null;
-    if (e.commonly_known_vulnerabilities) {
+    if (e.commonly_known_vulnerabilities) { 
+        var lines = packageJson.split(/\r\n|\n/);
+        var index = lines.findIndex (function (s,i,a) { 
+            return s.includes(e.name)})
+        
         r =  {}
         r.ruleId = e.commonly_known_vulnerabilities[0].id;
         r.message = {
@@ -77,11 +81,11 @@ function crda_to_result(e) {
         r.locations = [{
             "physicalLocation": {
                 "artifactLocation": {
-                    "uri": e.name,
+                    "uri": "package.json",
                     "uriBaseId": "PROJECTROOT"
                 },
                 "region": {
-                    "startLine": 1
+                    "startLine": index
                 }
             }
         }];
@@ -91,7 +95,7 @@ function crda_to_result(e) {
 
 
 
-function mergeSarif(d1) {
+function mergeSarif(d1, packageJson) {
     console.log(outputFile + " rules found: ", srules(sarif_template).length)
     console.log(outputFile + " locations found: ", sresults(sarif_template).length)
     var crda = JSON.parse(d1)
@@ -110,7 +114,7 @@ function mergeSarif(d1) {
     var results = []
     crda.analysed_dependencies.forEach(
         function (e) { 
-            var hasResult = crda_to_result(e);
+            var hasResult = crda_to_result(e, packageJson);
             if (hasResult) results.push(hasResult) 
         }
     )
@@ -120,9 +124,11 @@ function mergeSarif(d1) {
     return sarif_template;
 }
 
-fs.readFile(crda, 'utf8', function (err, crdaData) {
-    var sarif = mergeSarif(crdaData)
-    writeJSON(outputFile, sarif, process.exit)
+fs.readFile("package.json", 'utf8', function (err, packageData) {
+    fs.readFile(crda, 'utf8', function (err, crdaData) {
+        var sarif = mergeSarif(crdaData, packageData)
+        writeJSON(outputFile, sarif, process.exit)
+    })
 })
 
 function writeJSON(file, value, then) {
