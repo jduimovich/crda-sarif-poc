@@ -7,11 +7,13 @@ This demonstrates the use of the [CRDA CLI](https://github.com/fabric8-analytics
 
 The CRDA CLI produces a json format which contains a detailed list of any dependencies with vulnerabilties. In order to use this with the Github built in facility, a converter creates a Sarif file for uploaded using github/codeql-action/upload-sarif@v1  
 
+![Issues Found](sample.png)
+
 The status of this action is PoC. 
 
 Sample usage is below. In order to get a full scan, a SNYK_TOKEN is required to use this action.
 
-The output file defaults to output.sarif but can be changed by the user. 
+The output file defaults to `output.sarif` but can be changed by the user. 
 
 ``` 
 name: CI
