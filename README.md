@@ -1,16 +1,17 @@
 
-CRDA Scan and Convert to Sarif
+# Code Ready Dependency Analytics CLI with conversion to Sarif Action
 
 [![CI](https://github.com/jduimovich/crda-sarif-poc/actions/workflows/ci.yml/badge.svg)](https://github.com/jduimovich/crda-sarif-poc/actions/workflows/ci.yml)
 
-This action is designed to scan a repository using CRDA and then convert to SARIF for use with Github Security Scanning Facility.
+This demonstrates the use of the [CRDA CLI](https://github.com/fabric8-analytics/cli-tools/blob/main/docs/cli_README.md) to scan a file for dependency vulnerabilities and upload to the Github Security Scanning Facility.
 
-This is a PoC/WIP
+The CRDA CLI produces a json format which contains a detailed list of any dependencies with vulnerabilties. In order to use this with the Github built in facility, a converter creates a Sarif file for uploaded using github/codeql-action/upload-sarif@v1  
 
-The converted sarif file is uploaded using github/codeql-action/upload-sarif@v1  
+The status of this action is PoC. 
 
-Sample usage is here . Matched use of the CLI, file name to scan and synk token required.
-The output file defauls to output.sarif but can be changed by the user. 
+Sample usage is below. In order to get a full scan, a SNYK_TOKEN is required to use this action.
+
+The output file defaults to output.sarif but can be changed by the user. 
 
 ``` 
 name: CI
@@ -18,7 +19,7 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: Merge Sarif Files for github scans
+    name: Run CRDA and Convert to Sarif
     steps: 
       - name: Checkout
         uses: actions/checkout@v2 
