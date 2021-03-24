@@ -3,9 +3,9 @@
 
 [![CI](https://github.com/jduimovich/crda-sarif-poc/actions/workflows/ci.yml/badge.svg)](https://github.com/jduimovich/crda-sarif-poc/actions/workflows/ci.yml)
 
-This demonstrates the use of the [CRDA CLI](https://github.com/fabric8-analytics/cli-tools/blob/main/docs/cli_README.md) to scan a file for dependency vulnerabilities and upload to the Github Security Scanning Facility.
+This Action uses the [CRDA CLI](https://github.com/fabric8-analytics/cli-tools/blob/main/docs/cli_README.md) to scan a file for dependency vulnerabilities and upload to the Github Security Scanning Facility.
 
-The CRDA CLI produces a json format which contains a detailed list of any dependencies with vulnerabilties. In order to use this with the Github built in facility, a converter creates a Sarif file for uploaded using github/codeql-action/upload-sarif@v1  
+The CRDA CLI produces a json format which contains a detailed list of any dependencies with vulnerabilties. In order to use this with the GitHub security scan support, a converter creates a Sarif file for uploaded using `github/codeql-action/upload-sarif@v1`. To learn more see [https://docs.github.com/en/code-security/secure-coding/sarif-support-for-code-scanning](https://docs.github.com/en/code-security/secure-coding/sarif-support-for-code-scanning).
 
 ![Issues Found](sample.png)
 
